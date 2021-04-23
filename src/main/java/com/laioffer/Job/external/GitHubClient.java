@@ -71,4 +71,30 @@ public class GitHubClient {
             items.get(i).setKeywords(keywordList.get(i));
         }
     }
+
+    //If you run into 500 internal server error,
+    // it might be because MonkeyLearn returning 404 with some descriptions,
+    // you and instead use title to search, in your GithubClient, 
+    // replace the extractKeywords with the following implementation:
+    private void extractKeywordsTemp(List<Item> items){
+        MonkeyLearnClient monkeyLearnClient = new MonkeyLearnClient();
+        List<String> descriptions = new ArrayList<>();
+        for(Item item : items){
+            descriptions.add(item.getDescription());
+        }
+
+        List<String> titles = new ArrayList<>();
+        for(Item item : items) {
+            titles.add(item.getTitle());
+        }
+        List<Set<String>> keywordList = monkeyLearnClient.extract(descriptions);
+        if (keywordList.isEmpty()) {
+            keywordList = monkeyLearnClient.extract(titles);
+        }
+
+        for(int i = 0; i < keywordList.size(); i++){
+            items.get(i).setKeywords(keywordList.get(i));
+        }
+    }
+
 }

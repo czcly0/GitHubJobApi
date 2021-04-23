@@ -18,6 +18,20 @@ public class Item {
     private Set<String> keywords;
     private boolean favorite;
 
+    public Item() {
+    }
+
+    public Item(String id, String title, String location, String companyLogo, String url, String description, Set<String> keywords, boolean favorite) {
+        this.id = id;
+        this.title = title;
+        this.location = location;
+        this.companyLogo = companyLogo;
+        this.url = url;
+        this.description = description;
+        this.keywords = keywords;
+        this.favorite = favorite;
+    }
+
     // @JsonProperty("") indicates the mapping. This field is optional if the property name is the same as the JSON key,
     // but it's required for multi-word snake case and camel case conversions, like company_log to companyLogo
     @JsonProperty("id")
@@ -64,4 +78,6 @@ public class Item {
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
     }
+
+
 }
